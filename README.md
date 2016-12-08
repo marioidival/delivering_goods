@@ -3,13 +3,14 @@
 ## O Problema
 
 Uma rede grande de varejo esta desenvolvendo um novo sistema de logística e sua ajuda é muito importante neste momento. Sua tarefa será desenvolver o novo sistema de entregas visando sempre o menor custo. Para popular sua base de dados o sistema precisa expor um web service que aceite o formato de malha logística (exemplo abaixo), nesta mesma requisição o requisitante deverá informar um nome para este mapa. É importante que os mapas sejam persistidos para evitar que a cada novo deploy todas as informações desapareçam. O formato de malha logística é bastante simples, cada linha mostra uma rota: ponto de origem, ponto de destino e distância entre os pontos em quilômetros.
-
+```
 A B 10
 B D 15
 A C 20
 C D 30
 B E 50
 D E 30
+```
 
 Com os mapas carregados o requisitante irá procurar o menor valor de entrega e seu caminho, para isso ele passará o mapa, nome do ponto de origem, nome do ponto de destino, autonomia do caminhão (km/l) e o valor do litro do combustível, agora sua tarefa é criar este web service. Um exemplo de entrada seria, mapa SP, origem A, destino D, autonomia 10, valor do litro 2,50; a resposta seria a rota A B D com custo de 6,25.
 
@@ -50,13 +51,13 @@ O problema foi solucionado usando as seguintes tecnologias (e algoritmo):
 
 ## Executando
 
-``
+```
 cd delivering_goods/
  # A aplicação ficará em background
 docker-compose up -d
  # Ira executar os migrations
 docker-compose run web python manage.py migrate
-``
+```
 
 ## API
 ### POST /api/map
@@ -80,7 +81,7 @@ X-Frame-Options: SAMEORIGIN
 }
 ```
 
- ### GET /api/mesh
+### GET /api/mesh
  - Endpoint criado para retornar o menor caminho/custo de um mapa com sua mapa logística
 ```
 # Exemplo com httpie
