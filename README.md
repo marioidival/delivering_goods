@@ -43,3 +43,64 @@ O problema foi solucionado usando as seguintes tecnologias (e algoritmo):
 - Dijkstra
 -- Acredito que o algoritmo de Dijkstra se encaixa muito bem no problema de achar a distancia mais curta e acabei usando este algoritmo para resolver.
 
+## Requisitos
+
+* Docker
+* Docker Compose
+
+## Executando
+
+``
+cd delivering_goods/
+ # A aplicação ficará em background
+docker-compose up -d
+ # Ira executar os migrations
+docker-compose run web python manage.py migrate
+``
+
+## API
+### POST /api/map
+- Endpoind criado para salvar um novo mapa com sua malha logística
+```
+ # Exemplo com httpie 
+ http localhost:8000/api/map name='SP' mesh='A B 10 B D 15 A C 20 C D 30 B E 50 D E 30'
+ 
+ HTTP/1.0 201 Created
+Allow: POST, OPTIONS
+Content-Type: application/json
+Date: Thu, 08 Dec 2016 21:09:35 GMT
+Server: WSGIServer/0.2 CPython/3.5.2
+Vary: Accept, Cookie
+X-Frame-Options: SAMEORIGIN
+
+{
+    "id": 5,
+    "mesh": "A B 10 B D 15 A C 20 C D 30 B E 50 D E 30",
+    "name": "SP"
+}
+```
+
+ ### GET /api/mesh
+ - Endpoint criado para retornar o menor caminho/custo de um mapa com sua mapa logística
+```
+# Exemplo com httpie
+
+http localhost:8000/api/mesh map=='SP' root=='A' destination=='D' autonomy=='10' gas=='2.50'
+
+HTTP/1.0 200 OK
+Allow: GET, OPTIONS
+Cache-Control: max-age=900
+Content-Type: application/json
+Date: Thu, 08 Dec 2016 21:12:24 GMT
+Expires: Thu, 08 Dec 2016 21:27:24 GMT
+Last-Modified: Thu, 08 Dec 2016 21:12:24 GMT
+Server: WSGIServer/0.2 CPython/3.5.2
+Vary: Accept, Cookie
+X-Frame-Options: SAMEORIGIN
+
+{
+    "mesh": "Route A B D coast 6.25"
+}
+
+
+```
