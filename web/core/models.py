@@ -4,7 +4,7 @@ from core.process_text import TextRouteProcess
 
 
 class Map(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     mesh = models.TextField()
 
     def save(self, *args, **kwargs):
