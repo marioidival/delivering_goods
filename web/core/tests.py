@@ -41,3 +41,30 @@ class TestAPIMap(TestCase):
             response.content,
             b'{"name":["map with this name already exists."]}'
         )
+
+
+class TestGetMesh(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        # Setup map-mesh from email
+        Map.objects.create(
+            name='map sp', mesh='A B 10 B D 15 A C 20 C D 30 B E 50 D E 30'
+        )
+        self.params = {'map': 'map sp', 'root': 'A', 'destination': 'D',
+                       'autonomy': '10', 'gas': '2.50'}
+
+    def test_get_shortest_route(self):
+        'Returns a object with more shortest route'
+        response = self.client.get('/api/mesh', self.params)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual({'mesh': 'Route A B D coast 6.25'}, response.data)
+
+    def test_get_shortest_route_without_any_params_raise_error(self):
+        'Try get a shortest route with missing params raise 404'
+        del self.params['gas']
+        response = self.client.get('/api/mesh', self.params)
+
+        self.assertEqual(404, response.status_code)
+        self.assertIn(b'error', response.content)

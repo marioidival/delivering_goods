@@ -35,9 +35,14 @@ def mesh_view(request):
     gas = request.query_params.get('gas')
 
     try:
+        assert root is not None
+        assert destination is not None
+        assert autonomy is not None
+        assert gas is not None
+
         distance, route = map.process_mesh(root, destination)
     except:
-        return Response({'detail': 'Route Not Found!'}, status=404)
+        return Response({'error': 'Route Not Found!'}, status=404)
 
     route = ' '.join(route)
     coast = calculate_route_price(autonomy, gas, distance)
@@ -45,5 +50,5 @@ def mesh_view(request):
     response = 'Route {route} coast {coast:.2f}'.format(
         route=route, coast=coast
     )
-    return Response(response)
+    return Response({'mesh': response})
 
