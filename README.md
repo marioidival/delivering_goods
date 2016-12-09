@@ -29,14 +29,14 @@ O problema foi solucionado usando as seguintes tecnologias (e algoritmo):
 ### Motivações
 - Python 3
 -- É uma versão nova da linguagem Python e bem amadurecida, pronta para produção. Na comunidade ainda existe uma certa resistencia de alguns para o uso, mas essa versão vem repletas de melhorias e novas formas de solucionar problemas (novos e antigos).
-- Djongo
+- Django
 -- O framework web escrito em Python mais popular e completo, com diversas features interessantes e que ajudam o programador a resolver problemas comuns no desenvolvimento Web de uma maneira divertida.
 - Django Rest Framework
 -- Pacote incremental para o framework Django, permitindo-o criar API's de maneira muito rapida.
 - PostgreSQL
 -- O banco de dados relacional mais robusto do mercado atualmente. Não tenho muita experiencia com outros do mercado.
 - Memcached
--- Sistema de cache extremamente rapido e muito adotado em varias empresas. Existe o Redis tambem, porem o Djando se comporta melhor usando o Memcached.
+-- Sistema de cache extremamente rapido e muito adotado em varias empresas. Existe o Redis tambem, porem o Django se comporta melhor usando o Memcached.
 
 - Docker
 -- Uma ferramenta muito util que ajuda tanto no desenvolvimento, criando ambientes similares a produção, quanto em produção, ajudando a escalar aplicações mais facilmente usando containers.
@@ -82,7 +82,7 @@ X-Frame-Options: SAMEORIGIN
 ```
 
 ### GET /api/mesh
- - Endpoint criado para retornar o menor caminho/custo de um mapa com sua mapa logística
+ - Endpoint criado para retornar o menor caminho/custo de um mapa com sua malha logística
 ```
 # Exemplo com httpie
 
